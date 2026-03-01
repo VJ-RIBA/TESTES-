@@ -6,7 +6,6 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-    <!-- model-viewer -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
     <style>
@@ -16,36 +15,103 @@
         --safe-left: env(safe-area-inset-left, 0px);
         --safe-right: env(safe-area-inset-right, 0px);
       }
-
       * { box-sizing: border-box; }
 
       html, body { height: 100%; }
 
-      body {
+      body{
         margin: 0;
-        background: #111;
-        color: #fff;
+        background:#111;
+        color:#fff;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
         padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
 
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
       }
 
-      model-viewer {
-        width: 100%;
-        outline: none;
+      model-viewer{
+        width:100%;
+        outline:none;
 
+        /* fallback antigo */
         height: 72vh;
+
+        /* iOS/Safari moderno: use a viewport "pequena" (sem pegar a área da barra) */
         height: 72svh;
+
+        /* se svh não existir, dvh ajuda a encaixar na área visível atual */
         height: 72dvh;
       }
 
-      .help {
+      .help{
         padding: 14px 16px 18px;
-        text-align: center;
+        text-align:center;
+
         font-size: 1.15rem;
         line-height: 1.4;
+
         max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .ar-button{
+        position:absolute;
+        bottom: calc(14px + var(--safe-bottom));
+        left:50%;
+        transform:translateX(-50%);
+
+        padding: 1rem 1.8rem;
+        border:0;
+        border-radius: 999px;
+        background:#fff;
+        color:#111;
+        font-weight: 800;
+        font-size: 1.05rem;
+        cursor:pointer;
+      }
+      .ar-button:active{
+        transform:translateX(-50%) scale(0.98);
+      }
+
+      /* iPhone grande: dá mais área pro 3D */
+      @media (min-width: 430px){
+        model-viewer{ height: 78svh; height: 78dvh; }
+        .help{ font-size: 1.18rem; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <model-viewer
+      src="https://glb-proxy.thiago-junnior.workers.dev/"
+      camera-controls
+      auto-rotate
+      autoplay
+
+      ar
+      ar-modes="webxr scene-viewer quick-look fallback"
+      ar-scale="fixed"
+
+      touch-action="pan-y"
+      interaction-policy="always-allow"
+      interaction-prompt="auto"
+      interaction-prompt-style="wiggle"
+
+      shadow-intensity="1"
+      exposure="1"
+      environment-image="neutral"
+      alt="STAGE LED 3D em visualização interativa e realidade aumentada">
+
+      <button slot="ar-button" class="ar-button">Ver em AR</button>
+    </model-viewer>
+
+    <div class="help">
+      Use um dedo para girar o modelo, faça o gesto de pinça com dois dedos para dar zoom
+      e arraste com dois dedos para mover a visão. Em celulares compatíveis, toque em
+      “Ver em AR” para visualizar o STAGE LED 3D em realidade aumentada no ambiente real.
+    </div>
+  </body>
+</html>
