@@ -1,2 +1,2 @@
-# STAGE 3D-
+# STAGE 3D
 STAGE 3D + AR
