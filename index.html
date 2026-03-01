@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>STAGE LED 3D</title>
+
+    <!-- model-viewer -->
+    <script type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        background: #111;
+        color: #fff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      model-viewer {
+        width: 100vw;
+        height: 70vh;
+        outline: none;
+      }
+      .help {
+        padding: 1rem;
+        text-align: center;
+        font-size: 0.95rem;
+        max-width: 600px;
+      }
+      .ar-button {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.7rem 1.4rem;
+        border: none;
+        border-radius: 999px;
+        background: #fff;
+        color: #111;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .ar-button:active {
+        transform: translateX(-50%) scale(0.97);
+      }
+    </style>
+  </head>
+  <body>
+    <model-viewer
+      src="model.glb"
+      camera-controls
+      auto-rotate
+      autoplay
+
+      ar
+      ar-modes="webxr scene-viewer quick-look fallback"
+      ar-scale="fixed"
+
+      touch-action="pan-y"
+      interaction-policy="always-allow"
+      interaction-prompt="auto"
+      interaction-prompt-style="wiggle"
+
+      shadow-intensity="1"
+      exposure="1"
+      environment-image="neutral"
+      alt="STAGE LED 3D em visualização interativa e realidade aumentada">
+
+      <button slot="ar-button" class="ar-button">
+        Ver em AR
+      </button>
+    </model-viewer>
+
+    <div class="help">
+      Use um dedo para girar o modelo, faça o gesto de pinça com dois dedos para dar zoom
+      e arraste com dois dedos para mover a visão. Em celulares compatíveis, toque em
+      “Ver em AR” para visualizar o STAGE LED 3D em realidade aumentada no ambiente real.
+    </div>
+  </body>
+</html>
